@@ -1,0 +1,450 @@
+/* =========================================================
+   M-SHOP — نظام التصميم
+   لوحة الألوان:
+     --ink      #17130F  خلفية أساسية داكنة
+     --cream    #FAF5EA  خلفية فاتحة / بطاقات
+     --sand     #EDE1C9  خلفية ثانوية فاتحة
+     --gold     #B8892B  اللون المميز (من الشعار)
+     --gold-2   #E7C877  تدرج ذهبي فاتح
+     --maroon   #7A2331  لون تكميلي (من منتجات العناية)
+     --muted    #8A8172  نص ثانوي
+   الخطوط: Aref Ruqaa (عناوين) / Tajawal (نصوص وواجهة)
+   ========================================================= */
+
+:root {
+  --ink: #17130f;
+  --ink-2: #241d16;
+  --cream: #faf5ea;
+  --sand: #ede1c9;
+  --gold: #b8892b;
+  --gold-2: #e7c877;
+  --maroon: #7a2331;
+  --muted: #8a8172;
+  --line: rgba(184, 137, 43, 0.28);
+  --radius: 14px;
+  --shadow: 0 18px 40px -20px rgba(23, 19, 15, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Tajawal", sans-serif;
+  direction: rtl;
+  text-align: right;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3, .display {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ---------- عنصر مميّز: القوس الذهبي (مستوحى من مقبض الشعار) ---------- */
+.arch-divider {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 0;
+}
+.arch-divider span {
+  width: 34px;
+  height: 17px;
+  border: 2.5px solid var(--gold);
+  border-bottom: none;
+  border-radius: 34px 34px 0 0;
+  opacity: 0.55;
+}
+.arch-divider span:nth-child(2) { opacity: 0.9; height: 22px; width: 42px; }
+.arch-divider span:nth-child(3) { opacity: 0.55; }
+
+/* ---------- الهيدر ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(250, 245, 234, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  gap: 16px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand img {
+  height: 42px;
+  width: auto;
+}
+.brand-name {
+  font-family: "Aref Ruqaa", serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+}
+.brand-name b { color: var(--gold); }
+
+.country-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sand);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--ink);
+}
+.country-pill:hover { background: #e6d8b8; }
+
+/* ---------- الهيرو ---------- */
+.hero {
+  position: relative;
+  padding: 64px 0 40px;
+  background:
+    radial-gradient(600px 260px at 85% 0%, rgba(184,137,43,0.12), transparent 70%),
+    var(--ink);
+  color: var(--cream);
+  overflow: hidden;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -160px auto;
+  width: 420px;
+  height: 420px;
+  border: 2px solid rgba(231,200,119,0.18);
+  border-radius: 50%;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+}
+.eyebrow {
+  color: var(--gold-2);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: inline-block;
+  border-bottom: 1px solid rgba(231,200,119,0.4);
+  padding-bottom: 6px;
+}
+.hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.2rem);
+  color: var(--cream);
+}
+.hero h1 em {
+  color: var(--gold-2);
+  font-style: normal;
+}
+.hero p {
+  margin-top: 16px;
+  color: rgba(250,245,234,0.75);
+  font-size: 1.05rem;
+  line-height: 1.9;
+  max-width: 46ch;
+}
+
+/* ---------- الأقسام (شبكة) ---------- */
+.section {
+  padding: 46px 0;
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.section-head h2 {
+  font-size: 1.7rem;
+}
+.section-head .muted {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 18px;
+}
+.cat-card {
+  position: relative;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: var(--radius) var(--radius) 60px 60px / var(--radius) var(--radius) 60px 60px;
+  padding: 34px 18px 24px;
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--shadow);
+}
+.cat-card:hover {
+  transform: translateY(-4px);
+}
+.cat-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 58px; height: 58px;
+  border: 2px solid var(--gold);
+  border-bottom: none;
+  border-radius: 50% 50% 0 0;
+  opacity: 0.5;
+}
+.cat-card .cat-name {
+  position: relative;
+  font-family: "Aref Ruqaa", serif;
+  font-size: 1.15rem;
+  margin-top: 14px;
+}
+.cat-card .cat-count {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--gold-2);
+  font-family: "Tajawal", sans-serif;
+}
+
+/* ---------- بطاقات المنتجات ---------- */
+.prod-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+.prod-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+.prod-card:hover { transform: translateY(-3px); }
+.prod-thumb {
+  aspect-ratio: 1 / 1;
+  background: var(--sand);
+  overflow: hidden;
+}
+.prod-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.prod-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.prod-cat-tag {
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+}
+.prod-name {
+  font-family: "Aref Ruqaa", serif;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+.prod-price {
+  margin-top: auto;
+  font-weight: 700;
+  color: var(--maroon);
+  font-size: 1.05rem;
+}
+.prod-price span {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-family: "Tajawal", sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.15s ease;
+}
+.btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold-2), var(--gold));
+  color: var(--ink);
+}
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+}
+.prod-card .btn { margin-top: 4px; width: 100%; }
+
+.empty-state {
+  text-align: center;
+  padding: 70px 20px;
+  color: var(--muted);
+  background: var(--sand);
+  border-radius: var(--radius);
+}
+.empty-state .display {
+  font-size: 1.4rem;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+/* ---------- شريط الأقسام الفرعي (تنقل) ---------- */
+.crumbs {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.crumbs a { color: var(--gold); }
+
+/* ---------- صفحة المنتج ---------- */
+.product-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .product-view { grid-template-columns: 1fr; }
+}
+.product-media {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--sand);
+  box-shadow: var(--shadow);
+}
+.product-info .prod-cat-tag { font-size: 0.8rem; }
+.product-info h1 {
+  font-size: 2rem;
+  margin: 10px 0 14px;
+}
+.product-info .price-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.product-info .price-row .amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--maroon);
+  font-family: "Aref Ruqaa", serif;
+}
+.product-info p.desc {
+  color: #4a463f;
+  line-height: 2;
+  margin-bottom: 26px;
+}
+.trust-row {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--line);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* ---------- نافذة اختيار الدولة ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(23, 19, 15, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+.overlay.hidden { display: none; }
+.modal {
+  background: var(--cream);
+  border-radius: 18px;
+  max-width: 420px;
+  width: 100%;
+  padding: 34px 28px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+.modal h2 { font-size: 1.4rem; margin-bottom: 6px; }
+.modal p { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
+.country-list { display: flex; flex-direction: column; gap: 10px; }
+.country-opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  background: #fff;
+  font-weight: 700;
+  transition: border-color .15s ease, background .15s ease;
+}
+.country-opt:hover { border-color: var(--gold); background: #fffdf7; }
+
+/* ---------- الفوتر ---------- */
+.site-footer {
+  background: var(--ink);
+  color: rgba(250,245,234,0.65);
+  padding: 34px 0;
+  margin-top: 40px;
+  font-size: 0.85rem;
+  text-align: center;
+}
+.site-footer .brand-name { color: var(--cream); }
+.site-footer .brand-name b { color: var(--gold-2); }
