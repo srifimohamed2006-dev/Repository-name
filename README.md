@@ -1,32 +1,48 @@
-# # netlify-drop-demo-portfolio
+# متجر M-SHOP
 
-[Based on the Astro Starter Kit: Portfolio example](https://github.com/withastro/astro/tree/main/examples/portfolio)
+موقع بسيط (HTML/CSS/JS بدون أي أدوات بناء) لعرض منتجاتك من تاجر مع فلترة حسب الدولة والقسم.
 
-```sh
-npm create astro@latest -- --template portfolio
+## الملفات
+```
+m-shop/
+  index.html          الصفحة الرئيسية (الأقسام + المنتجات الأكثر طلبًا)
+  category.html       صفحة قسم واحد (تُفتح بـ category.html?cat=beauty)
+  product.html         صفحة تفاصيل منتج (تُفتح بـ product.html?id=1)
+  assets/css/style.css التصميم
+  assets/js/data.js     بيانات الأقسام/الدول/المنتجات (هذا هو الملف الوحيد الذي تحتاج تعديله لإضافة منتجات)
+  assets/js/main.js     المنطق العام (فلترة، اختيار الدولة، الروابط)
+  assets/img/           صور المنتجات والشعار
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/portfolio)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/portfolio)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/portfolio/devcontainer.json)
+## كيف تضيف منتج جديد؟
+افتح `assets/js/data.js` وأضف كائنًا جديدًا داخل مصفوفة `PRODUCTS`، مثلاً:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+```js
+{
+  id: 4,                       // رقم فريد لم يُستخدم من قبل
+  name: "اسم المنتج",
+  category: "electronics",     // أحد: beauty / electronics / clothes / home / entertainment
+  country: "SA",                // أحد: EG / SA / AE / IQ / OM
+  price: 199,
+  currency: "ر.س",
+  image: "assets/img/product-4.jpg",   // ضع الصورة في مجلد assets/img
+  link: "رابط الهبوط من تاجر",
+  description: "وصف قصير للمنتج.",
+},
+```
+لا حاجة لأي تعديل آخر — سيظهر المنتج تلقائيًا في الرئيسية وفي صفحة قسمه ودولته.
 
-![portfolio](https://user-images.githubusercontent.com/357379/210779178-a98f0fb7-6b1a-4068-894c-8e1403e26654.jpg)
+## كيف تنشر الموقع مجانًا كرابط فعلي؟
 
-## 🧞 Commands
+### الخيار الأول: Netlify (الأسهل، بدون حساب GitHub)
+1. ادخل إلى https://app.netlify.com/drop
+2. اسحب مجلد `m-shop` بالكامل وأفلته في الصفحة
+3. سيعطيك رابطًا فوريًا (يمكنك لاحقًا تغيير الاسم من إعدادات الموقع)
 
-All commands are run from the root of the project, from a terminal:
+### الخيار الثاني: GitHub Pages
+1. أنشئ حسابًا على github.com (إن لم يكن لديك)
+2. أنشئ مستودعًا (Repository) جديدًا، وارفع محتويات مجلد `m-shop` بالكامل إليه
+3. من إعدادات المستودع Settings → Pages، اختر Branch: main، ثم Save
+4. بعد دقيقة سيظهر رابط بالشكل: `https://username.github.io/repo-name`
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+بعد النشر، شارك الرابط مباشرة مع متابعينك.
