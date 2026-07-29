@@ -1,21 +1,115 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>لوحة تحكم M-SHOP</title>
-  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>M-SHOP | متجرك للتسوق أونلاين</title>
+<link rel="icon" href="assets/img/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css" />
+<script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", (user) => {
-        if (!user) {
-          window.netlifyIdentity.open();
-        }
-      });
+
+<header class="site-header"><div id="headerMount"></div></header>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <span class="eyebrow">سوق منتقى بعناية</span>
+    <h1>تسوّق كل ما تحتاجه، <em>في مكان واحد</em></h1>
+    <p>مجموعة مختارة من منتجات العناية والجمال والإلكترونيات والمنزل، بأسعار وشحن يناسب دولتك.</p>
+  </div>
+</section>
+
+<div class="arch-divider"><span></span><span></span><span></span></div>
+
+<main class="container">
+
+  <section class="section" id="catSection">
+    <div class="section-head">
+      <h2>تسوّق حسب القسم</h2>
+      <span class="muted" id="countryNote"></span>
+    </div>
+    <div class="cat-grid" id="catGrid"></div>
+  </section>
+
+  <section class="section" id="featuredSection" style="display:none;">
+    <div class="section-head">
+      <h2>الأكثر طلبًا</h2>
+      <span class="muted">مختارة لدولتك</span>
+    </div>
+    <div class="prod-grid" id="featuredGrid"></div>
+  </section>
+
+</main>
+
+<footer class="site-footer"><div id="footerMount"></div></footer>
+
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+(async function () {
+  await loadStoreData();
+  renderHeader("headerMount");
+  renderFooter("footerMount");
+
+  const country = getCountry();
+  const catGrid = document.getElementById("catGrid");
+  const countryNote = document.getElementById("countryNote");
+
+  countryNote.textContent = country
+    ? "الأقسام والمنتجات المتاحة في " + countryName(country)
+    : "اختر دولتك لعرض المنتجات المتاحة لديك";
+
+  catGrid.innerHTML = CATEGORIES.map((cat) => {
+    const count = getProducts({ country, category: cat.id }).length;
+    return `
+      <a class="cat-card" href="${buildUrl("category.html", { cat: cat.id })}">
+        <div class="cat-name">${cat.name}</div>
+        <span class="cat-count">${count > 0 ? count + " منتج متاح" : "قريبًا"}</span>
+      </a>
+    `;
+  }).join("");
+
+  if (country) {
+    const featured = getProducts({ country });
+    if (featured.length) {
+      document.getElementById("featuredSection").style.display = "block";
+      document.getElementById("featuredGrid").innerHTML = featured
+        .map(
+          (p) => `
+        <div class="prod-card">
+          <a class="prod-thumb" href="${buildUrl("product.html", { id: p.id })}">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" />
+          </a>
+          <div class="prod-body">
+            <span class="prod-cat-tag">${CATEGORIES.find((c) => c.id === p.category)?.name || ""}</span>
+            <a class="prod-name" href="${buildUrl("product.html", { id: p.id })}">${p.name}</a>
+            <div class="prod-price">${p.price} <span>${p.currency}</span></div>
+            <a class="btn btn-gold" href="${buildUrl("product.html", { id: p.id })}">عرض التفاصيل</a>
+          </div>
+        </div>
+      `
+        )
+        .join("");
     }
-  </script>
+  }
+
+  // إجبار اختيار الدولة عند أول زيارة
+  ensureCountrySelected();
+})();
+</script>
 </body>
 </html>
