@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: srifimohamed2006-dev/Repository-name
   branch: main
+  base_url: https://idyllic-tapioca-349e51.netlify.app
 
 # رفع الصور الجديدة للمنتجات هيتخزن هنا تلقائيًا
 media_folder: "assets/img/uploads"
