@@ -39,17 +39,24 @@ exports.handler = async (event) => {
     req.end();
   });
 
+  const authMessage = `authorization:github:success:${JSON.stringify({ token: accessToken, provider: "github" })}`;
+
   const script = `
     <script>
-      const receiveMessage = (message) => {
-        window.opener.postMessage(
-          'authorization:github:success:${JSON.stringify({ token: accessToken, provider: "github" })}',
-          message.origin
-        );
-        window.removeEventListener("message", receiveMessage, false);
-      };
-      window.addEventListener("message", receiveMessage, false);
-      window.opener.postMessage("authorizing:github", "*");
+      (function() {
+        var message = ${JSON.stringify(authMessage)};
+        if (window.opener) {
+          const receiveMessage = (msg) => {
+            window.opener.postMessage(message, msg.origin);
+            window.removeEventListener("message", receiveMessage, false);
+          };
+          window.addEventListener("message", receiveMessage, false);
+          window.opener.postMessage("authorizing:github", "*");
+        } else {
+          localStorage.setItem("gh_auth_pending", message);
+          window.location.href = "/admin/";
+        }
+      })();
     </script>
   `;
 
