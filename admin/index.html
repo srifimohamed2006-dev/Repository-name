@@ -9,20 +9,27 @@
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
       (function () {
-        var pending = localStorage.getItem("gh_auth_pending");
-        if (!pending) return;
+        function relay(message) {
+          window.postMessage(message, window.location.origin);
+        }
 
-        var attempts = 0;
-        var maxAttempts = 20;
-
-        var interval = setInterval(function () {
-          attempts++;
-          window.postMessage(pending, window.location.origin);
-          if (attempts >= maxAttempts) {
-            clearInterval(interval);
+        window.addEventListener("storage", function (e) {
+          if (e.key === "gh_auth_pending" && e.newValue) {
             localStorage.removeItem("gh_auth_pending");
+            relay(e.newValue);
           }
-        }, 300);
+        });
+
+        var pending = localStorage.getItem("gh_auth_pending");
+        if (pending) {
+          localStorage.removeItem("gh_auth_pending");
+          var attempts = 0;
+          var interval = setInterval(function () {
+            attempts++;
+            relay(pending);
+            if (attempts >= 20) clearInterval(interval);
+          }, 300);
+        }
       })();
     </script>
   </body>
