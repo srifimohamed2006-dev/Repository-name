@@ -26,8 +26,7 @@ exports.handler = async (event) => {
         res.on("data", (chunk) => (data += chunk));
         res.on("end", () => {
           try {
-            const parsed = JSON.parse(data);
-            resolve(parsed.access_token);
+            resolve(JSON.parse(data).access_token);
           } catch (e) {
             reject(e);
           }
@@ -46,15 +45,11 @@ exports.handler = async (event) => {
       (function() {
         var message = ${JSON.stringify(authMessage)};
         if (window.opener) {
-          const receiveMessage = (msg) => {
-            window.opener.postMessage(message, msg.origin);
-            window.removeEventListener("message", receiveMessage, false);
-          };
-          window.addEventListener("message", receiveMessage, false);
-          window.opener.postMessage("authorizing:github", "*");
+          window.opener.postMessage(message, window.location.origin);
+          document.body.innerHTML = "<p style='font-family:sans-serif;text-align:center;margin-top:40px'>تم تسجيل الدخول، يمكنك إغلاق هذه الصفحة.</p>";
         } else {
           localStorage.setItem("gh_auth_pending", message);
-          window.location.href = "/admin/";
+          document.body.innerHTML = "<p style='font-family:sans-serif;text-align:center;margin-top:40px'>تم تسجيل الدخول! ارجع إلى التبويب الأول وانتظر ثانيتين.</p>";
         }
       })();
     </script>
