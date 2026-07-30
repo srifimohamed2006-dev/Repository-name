@@ -3,39 +3,39 @@ backend:
   repo: srifimohamed2006-dev/Repository-name
   branch: main
   base_url: https://idyllic-tapioca-349e51.netlify.app
+  auth_endpoint: api/auth
 
-# رفع الصور الجديدة للمنتجات هيتخزن هنا تلقائيًا
 media_folder: "assets/img/uploads"
 public_folder: "/assets/img/uploads"
 
 locale: "ar"
 
 collections:
-  - name: "products"
-    label: "المنتجات"
+  - name: "منتجات"
+    label: "منتجات"
     label_singular: "منتج"
     files:
       - file: "data/products.json"
-        label: "قائمة المنتجات"
-        name: "products"
+        label: "منتجات"
+        name: "منتجات"
         fields:
-          - label: "المنتجات"
-            name: "products"
+          - label: "منتجات"
+            name: "منتجات"
             widget: "list"
             summary: "{{fields.name}} — {{fields.price}} {{fields.currency}}"
             fields:
-              - { label: "المعرف (رقم فريد، لا تكرره)", name: "id", widget: "number", value_type: "int" }
+              - { label: "المعرف (رقم فريد, لا يتكرر)", name: "id", widget: "number", value_type: "int" }
               - { label: "اسم المنتج", name: "name", widget: "string" }
-              - label: "القسم"
+              - label: "فئة"
                 name: "category"
                 widget: "select"
                 options:
-                  - { label: "الصحة والجمال", value: "beauty" }
-                  - { label: "الإلكترونيات", value: "electronics" }
-                  - { label: "الملابس", value: "clothes" }
+                  - { label: "الجمال", value: "beauty" }
+                  - { label: "إلكترونيات", value: "electronics" }
+                  - { label: "ملابس", value: "clothes" }
                   - { label: "المنزل", value: "home" }
-                  - { label: "منتجات ترفيهية", value: "entertainment" }
-              - label: "الدولة"
+                  - { label: "منتجات ترفيهية", value: "ترفيه" }
+              - label: "دولة"
                 name: "country"
                 widget: "select"
                 options:
@@ -46,20 +46,20 @@ collections:
                   - { label: "عمان", value: "OM" }
               - { label: "السعر", name: "price", widget: "number" }
               - { label: "العملة (مثال: ج.م / ر.س)", name: "currency", widget: "string" }
-              - { label: "صورة المنتج", name: "image", widget: "image" }
+              - { label: "صورة المنتج", name: "image", widget: "string" }
               - { label: "رابط الشراء (من تاجر)", name: "link", widget: "string" }
               - { label: "وصف المنتج", name: "description", widget: "text" }
 
-  - name: "settings"
-    label: "إعدادات المتجر"
+  - name: "إعدادات"
+    label: "مراجعة"
     files:
       - file: "data/settings.json"
-        label: "الاسم والألوان"
-        name: "settings"
+        label: "المأكولات والطعام"
+        name: "إعدادات"
         fields:
           - { label: "اسم المتجر", name: "shopName", widget: "string" }
-          - { label: "لون الخلفية الداكن (الهيدر/البطاقات)", name: "colorInk", widget: "color" }
+          - { label: "لون الخلفية البسيط (الهيدر/البطاقات)", name: "colorInk", widget: "color" }
           - { label: "لون الخلفية الفاتح (الأساسي)", name: "colorCream", widget: "color" }
           - { label: "اللون الذهبي الأساسي", name: "colorGold", widget: "color" }
           - { label: "اللون الذهبي الفاتح", name: "colorGold2", widget: "color" }
-          - { label: "لون مكمّل (الأسعار)", name: "colorMaroon", widget: "color" }
+          - { label: "لون مكمل (الأسعار)", name: "colorMaroon", widget: "color" }
