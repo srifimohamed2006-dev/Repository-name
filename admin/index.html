@@ -10,12 +10,19 @@
     <script>
       (function () {
         var pending = localStorage.getItem("gh_auth_pending");
-        if (pending) {
-          localStorage.removeItem("gh_auth_pending");
-          setTimeout(function () {
-            window.postMessage(pending, window.location.origin);
-          }, 500);
-        }
+        if (!pending) return;
+
+        var attempts = 0;
+        var maxAttempts = 20;
+
+        var interval = setInterval(function () {
+          attempts++;
+          window.postMessage(pending, window.location.origin);
+          if (attempts >= maxAttempts) {
+            clearInterval(interval);
+            localStorage.removeItem("gh_auth_pending");
+          }
+        }, 300);
       })();
     </script>
   </body>
